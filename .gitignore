@@ -1,3 +1,7 @@
+# BACPAC exports -- can be large and contain your data. Never commit these.
+*.bacpac
+bacpacs/
+
 # Local .terraform directories
 .terraform/
 

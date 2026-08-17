@@ -7,7 +7,7 @@ resource "azurerm_resource_group" "this" {
 # plus an admin identity and firewall. It is not a SQL Server instance and holds no data itself.
 # the databses below all live under this one server 
 
-resource "azurerm_sql_server" "this" {
+resource "azurerm_mssql_server" "this" {
   name                         = var.sql_server_name
   resource_group_name          = azurerm_resource_group.this.name
   location                     = azurerm_resource_group.this.location
@@ -22,7 +22,7 @@ resource "azurerm_sql_server" "this" {
 resource "azurerm_mssql_database" "dbs" {
   for_each  = toset(var.database_names)
   name      = each.value
-  server_id = azurerm_sql_server.this.id
+  server_id = azurerm_mssql_server.this.id
   sku_name  = var.sku_name
 
   # lets 'terraform destroy' tear the lab down cleanly when done. 
@@ -34,7 +34,7 @@ resource "azurerm_mssql_database" "dbs" {
 # firewall rule: allow your workstation (where SMSS runs) to reach the server. 
 resource "azurerm_mssql_firewall_rule" "client" {
   name             = "allow-client-ip"
-  server_id        = azurerm_resource_group.this.id
+  server_id        = azurerm_mssql_server.this.id
   start_ip_address = var.client_ip_address
   end_ip_address   = var.client_ip_address
 }
@@ -46,7 +46,7 @@ resource "azurerm_mssql_firewall_rule" "client" {
 resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
   count            = var.allow_azure_services ? 1 : 0
   name             = "allow-azure-services"
-  server_id        = azurerm_sql_server.this.id
+  server_id        = azurerm_mssql_server.this.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
 }

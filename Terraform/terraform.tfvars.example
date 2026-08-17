@@ -1,13 +1,14 @@
 # this part should be ignored. it will not be committed to the github repo 
 
 
-sql_server_name = "sqlmig-lab-rac-001"
+sql_server_name = "sqlmig-lab-rac-001" 
 sql_admin_login = "sqladmin"
 sql_admin_password = "Str0ng3rP@ssw0rd"
 client_ip_address = "35.145.3.153"
 
-# Optional overrides
 
+
+# Optional overrides
 # resource_group_name  = "rg-sql-migration-lab"
 # location             = "eastus"
 # database_names       = ["Data_Warehouse", "MyDatabase", "nbadb", "SalesDB"]

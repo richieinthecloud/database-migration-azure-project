@@ -3,7 +3,7 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
-# The cloud SQL server: a network endpoint (<name>.database.windows.net)
+# The cloud SQL server: a network endpoint (sqlmig-lab-rac-001.database.windows.net)
 # plus an admin identity and firewall. It is not a SQL Server instance and holds no data itself.
 # the databses below all live under this one server 
 

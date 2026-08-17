@@ -28,7 +28,7 @@
     $pw = Read-Host "Azure SQL admin password" -AsSecureString
     ./Migrate-Databases.ps1 `
         -LocalServer "localhost\SQLEXPRESS" `
-        -AzureServer "sqlmig-lab-ra-001.database.windows.net" `
+        -AzureServer "sqlmig-lab-rac-001.database.windows.net" `
         -AzureAdminUser "sqladmin" `
         -AzureAdminPassword $pw
 
@@ -41,14 +41,14 @@
 [CmdletBinding()]
 param(
     [string]   $LocalServer = "localhost\SQLEXPRESS",
-    [string[]] $Databases = @("AdventureWorks", "Northwind", "SalesDB", "InventoryDB"),
+    [string[]] $Databases = @("Data_Warehouse", "MyDatabase", "nbadb", "SalesDB"),
 
     [Parameter(Mandatory)] [string]       $AzureServer,        # <name>.database.windows.net
     [Parameter(Mandatory)] [string]       $AzureAdminUser,     # e.g. sqladmin
     [Parameter(Mandatory)] [securestring] $AzureAdminPassword,
 
     [string] $BacpacDir = (Join-Path $PSScriptRoot "..\bacpacs"),
-    [string] $TerraformDir = (Join-Path $PSScriptRoot "..\terraform")
+    [string] $TerraformDir = (Join-Path $PSScriptRoot "..\Terraform")
 )
 
 $ErrorActionPreference = "Stop"
